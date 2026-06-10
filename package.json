@@ -1,0 +1,21 @@
+{
+  "name": "fuoye-ballon-dor",
+  "private": true,
+  "scripts": {
+    "dev:backend": "pnpm --filter backend dev",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev": "pnpm run dev:backend & pnpm run dev:frontend",
+    "tunnel": "./node_modules/.bin/outray http 3001 --subdomain fuoye-ballondor",
+    "tunnel:frontend": "./node_modules/.bin/outray http 5173 --subdomain fuoye-ballondor-web",
+    "dev:tunnel": "concurrently -k -n api,web,tun-api,tun-web -c cyan,green,yellow,magenta 'pnpm run dev:backend' 'pnpm --filter frontend dev:notunnel' 'pnpm run tunnel' 'pnpm run tunnel:frontend'",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "seed": "pnpm --filter backend seed",
+    "seed:nominees-to-prod": "pnpm --filter backend seed:nominees-to-prod"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "outray": "^0.1.7"
+  }
+}

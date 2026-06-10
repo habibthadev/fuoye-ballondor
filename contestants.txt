@@ -1,0 +1,157 @@
+## Ballon d'Or — Male (20)
+
+| # | Name | Nickname | Position | Department | Faculty |
+|---|------|----------|----------|------------|---------|
+| 1 | Ajibade Charles Joshua | — | CM / AM | Estate Management | Environmental Design & Management |
+| 2 | Akinwole Feranmi John | — | LW / RW | Agricultural Economics & Extension | Agriculture |
+| 3 | Obe Henry | — | Striker (9) | Public Administration | Management Sciences |
+| 4 | Falade Samuel | — | Striker | Geology | Physical Sciences |
+| 5 | Adamolekun Ayomide | Bellingham | Left Wing | Human Kinetics & Health Education | Education |
+| 6 | Oladele Damilola | Alvarez | Left Wing | Biochemistry | Life Sciences |
+| 7 | Oyewole Samson | Mania | CB / CMF | Finance | Management Sciences |
+| 8 | Aderoju Israel Oluwatomiwa | — | RWF / AMF | Mass Communication | Communication & Media Studies |
+| 9 | Akinwande Kayode Isaac | — | LWF | Anatomy | Basic Medical Science |
+| 10 | Teniola Samuel | — | Midfielder | Radiography & Radiation Science | Basic Medical Science |
+| 11 | Moyosore S. Tobiloba | — | CM / AM | Political Science | Social Sciences |
+| 12 | Omoyeni M. Mercy | — | DMF | Criminology | Social Sciences |
+| 13 | Ogunyemi Israel | — | Midfielder | Computer Science | Computing |
+| 14 | Ajayi Boluwatife | — | LWF (11) | History & International Studies | Arts |
+| 15 | Famisa Victor Oluwaduyilemi | — | Wingback | Mechatronics Engineering | Engineering |
+| 16 | Raji Toheeb Olamilekan | — | Midfielder | Agric & Bio-Resources Engineering | Engineering |
+| 17 | Osaro Daniel | — | LWF (11) | Linguistics & Languages | Arts |
+| 18 | Adeyemi Oluwaseun | FADA | CB | Biochemistry | Life Sciences |
+| 19 | Akinsominu Paul Abiodun | — | Midfielder | Agricultural Education | Education |
+| 20 | Omiyale Damilola Henry | — | DMF / CMF | History & International Studies | Arts |
+
+---
+
+## Ballon d'Or — Female (17)
+
+| # | Name | Nickname | Position | Department | Faculty |
+|---|------|----------|----------|------------|---------|
+| 1 | Akinwumi O. Olamide | — | CM / AM | Criminology | Social Sciences |
+| 2 | Omowunmi Precious Longe | — | GK | Finance | Management Sciences |
+| 3 | Fasunon Favour Oluwatomisin | — | Striker (9) | Journalism | Communication & Media Studies |
+| 4 | Oludare Ayomide | — | Midfielder | Architecture | Environmental Design & Management |
+| 5 | Adeparua Yetunde Adefunke | — | CB | Microbiology | Life Sciences |
+| 6 | Ogedengbe Bolaji Temidire | — | CMF | Chemistry | Physical Sciences |
+| 7 | Chukwunyere Ijeoma Ayomide | — | RW | Nursing | Basic Medical Science |
+| 8 | Ogungbe Bisola Herodia | — | CB | Radiography & Radiation Science | Basic Medical Science |
+| 9 | Abdullahi Shifau | — | GK | Statistics | Physical Sciences |
+| 10 | Yusuf Peace Olayinka | — | Defender (6) | Accounting | Management Sciences |
+| 11 | Nwani Blessing | — | DMF | Business Education | Education |
+| 12 | Grace Ekwe | — | Right Wing | Biochemistry | Life Sciences |
+| 13 | Agunbiade Oluwatelemi Ololade | — | Striker (9) | Building | Environmental Design & Management |
+| 14 | Onyemaechi Comfort Uzunma | — | Striker | Business Administration | Management Sciences |
+| 15 | Ogunbowale T. Boluwatife | — | Forward | Criminology | Social Sciences |
+| 16 | Oladoyin Olamide | Lammy | Winger | Library & Information Science | Education |
+| 17 | Oni-Praise Abiodun | — | Striker | Software Engineering | Computing |
+
+---
+
+## Kopa Trophy (6)
+
+| # | Name | Nickname | Position | Department | Faculty |
+|---|------|----------|----------|------------|---------|
+| 1 | Owolewa Muiz | — | AM | Demography & Social Statistics | Social Sciences |
+| 2 | Oghai Victor | — | CF / AM | Agric & Bio-Resources Engineering | Engineering |
+| 3 | Matthew Oluwatimilehin Samuel | Timero | RWF | Animal & Environmental Biology | Life Sciences |
+| 4 | Chibuike Chidera David | Gavera | DMF | Software Engineering | Computing |
+| 5 | Ogunleye Adeyemi Opeyemi | Charles | Striker | Statistics | Physical Sciences |
+| 6 | Bakare B. Emmanuel | — | CM / AM | Economics | Social Sciences |
+
+---
+
+## Yashin Trophy (12)
+
+| # | Name | Nickname | Position | Department | Faculty |
+|---|------|----------|----------|------------|---------|
+| 1 | Samuel Damilare | — | GK | Animal & Environmental Biology | Life Sciences |
+| 2 | Onugha Stephen | Kizito | GK | Political Science | Social Sciences |
+| 3 | Adedokun Jeremiah | Ogbomosho | GK | Criminology | Social Sciences |
+| 4 | Kolapo Abass Olagoke | — | GK | Computer Science | Computing |
+| 5 | Gidado Ibrahim | — | GK | Surveying & Geoinformatics | Environmental Design & Management |
+| 6 | Badmus Emmanuel | — | GK | Mechatronics Engineering | Engineering |
+| 7 | Alao Ayomide Samuel | — | GK | Electrical & Electronics Engineering | Engineering |
+| 8 | Oyewole Abdulroqeeb Adebayo | — | GK | Quantity Surveying | Environmental Design & Management |
+| 9 | Isadare Dele Adeoye | — | GK | Soil Science & Land Resources Management | Agriculture |
+| 10 | Omoniyi Victor | — | GK | Library & Information Science | Education |
+| 11 | Tadese Sodiq | Bellingham | GK | Industrial Chemistry | Physical Sciences |
+| 12 | Ajewole Temitope Michael | — | GK | Accounting | Management Sciences |
+
+---
+
+## Defender of the Year (16)
+
+| # | Name | Nickname | Position | Department | Faculty |
+|---|------|----------|----------|------------|---------|
+| 1 | Oyewole Samson | Mania | CB | Finance | Management Sciences |
+| 2 | Owojaiye Victor | Ramos | CB | Animal & Environmental Biology | Life Sciences |
+| 3 | Didi Izuchukwu | Izu | CB | Biochemistry | Life Sciences |
+| 4 | Falodun Ebenezer | — | RB | Mechanical Engineering | Engineering |
+| 5 | Oludiaro Ifeoluwa | Klex | Defender | Computer Science | Computing |
+| 6 | Onafowokan Olarenwaju Idunuoluwa | — | CB / RB | Mathematics | Physical Sciences |
+| 7 | Johnson Joshua | — | Defender | Computer Science | Computing |
+| 8 | Akinyeye Timothy Akintunde | — | Defender | Mass Communication | Communication & Media Studies |
+| 9 | Ogisuah Samuel Oluwaseun | — | Defender | Business Administration | Management Sciences |
+| 10 | Asekunola Iyanu Sunday | — | Defender | Agricultural Education | Education |
+| 11 | Afesojaye Matthew Obaloluwa | — | CB | Physics | Physical Sciences |
+| 12 | Siyanbola Abdulsamad Ayomide | — | CD | Quantity Surveying | Environmental Design & Management |
+| 13 | Adeyemi Oluwaseun | FADA | CB | Biochemistry | Life Sciences |
+| 14 | Folashade Israel Olumide | — | CB (6) | Philosophy | Arts |
+| 15 | Olayiwola Daniel | Baba D | CB / RB | Political Science | Social Sciences |
+| 16 | Enemali John | — | CB | Political Science | Social Sciences |
+
+---
+
+## Playmaker of the Year (20)
+
+| # | Name | Nickname | Position | Department | Faculty |
+|---|------|----------|----------|------------|---------|
+| 1 | Folorunso-Davies Olumide | — | CM | Medical Laboratory Science | Basic Medical Science |
+| 2 | Chibuike Chidera David | Gavera | DMF | Software Engineering | Computing |
+| 3 | Tiamiyu Franklin | — | DMF | Estate Management | Environmental Design & Management |
+| 4 | Ajibade Charles Joshua | — | CM / AM | Estate Management | Environmental Design & Management |
+| 5 | Akinwolire Emmanuel Oloruntoba | — | DMF / CMF | Quantity Surveying | Environmental Design & Management |
+| 6 | Ajao Joshua Olakunle | — | Midfielder | Finance | Management Sciences |
+| 7 | Akinfemiwa Victor Idowu | — | AM | Data Science & Analysis | Computing |
+| 8 | Ogunyemi Israel | — | Midfielder | Computer Science | Computing |
+| 9 | Oni Miracle David | Miramax | Midfielder | Microbiology | Life Sciences |
+| 10 | Joel Victory Jesujoba | JayJay | Midfielder | Animal & Environmental Biology | Life Sciences |
+| 11 | Owoeye Victor Agbolahan | Vico | Midfielder | Mass Communication | Communication & Media Studies |
+| 12 | Adekanbi Muiz Opeyemi | — | DMF | Physics | Physical Sciences |
+| 13 | Alake Olamide Precious | — | AM | Geophysics | Physical Sciences |
+| 14 | Uzomah Nnemeka Joachim | — | AM | Agric & Bio-Resources Engineering | Engineering |
+| 15 | Olumide Benjamin | — | DMF | Business Administration | Management Sciences |
+| 16 | Femi Johnson | — | Midfielder | Human Kinetics | Education |
+| 17 | Olushola Samuel Oyedepo | — | CM | History & International Studies | Arts |
+| 18 | Omoyeni M. Mercy | — | DMF | Criminology | Social Sciences |
+| 19 | Bakare B. Emmanuel | — | CM / AM | Economics | Social Sciences |
+| 20 | Teniola Samuel | — | Midfielder | Radiography & Radiation Science | Basic Medical Science |
+
+---
+
+## Attacker of the Year (16)
+
+| # | Name | Nickname | Position | Department | Faculty |
+|---|------|----------|----------|------------|---------|
+| 1 | Obe Henry | — | Striker | Public Administration | Management Sciences |
+| 2 | Adedapo Ibrahim | — | Left Wing | Estate Management | Environmental Design & Management |
+| 3 | Ayodabo Uthman Kolade | — | Right Wing | Surveying & Geoinformatics | Environmental Design & Management |
+| 4 | Babatunde Michael | Melow | Forward | Biochemistry | Life Sciences |
+| 5 | Elias David | — | RWF | Animal & Environmental Biology | Life Sciences |
+| 6 | Falade Samuel | — | Striker | Geology | Physical Sciences |
+| 7 | Olundegun Raphael Ayoola | — | CF | Materials & Metallurgical Engineering | Engineering |
+| 8 | Alabi Olumide Bolaji | — | Right Wing | Civil Engineering | Engineering |
+| 9 | Ayelade Ayomide | — | Attacker | Computer Science | Computing |
+| 10 | Adamolekun Ayomide | Bellingham | Attacker | Human Kinetics & Health Education | Education |
+| 11 | Bamidele Farouq | — | LW / RW | Political Science | Social Sciences |
+| 12 | Oladele Saheed | — | LW / RW | Political Science | Social Sciences |
+| 13 | Akinwande Kayode | — | Forward | Anatomy | Basic Medical Science |
+| 14 | Osaro Daniel | — | LWF (11) | Linguistics & Languages | Arts |
+| 15 | Olowoeyo Tayelolu Adeyemi | — | Striker | Radiography & Radiation Science | Basic Medical Science |
+| 16 | Oladapo Ifeoluwa Ayomide | — | Attacker | Mass Communication | Communication & Media Studies |
+
+---
+
+**One flag:** Gidado Ibrahim's entry in the original only says "SVG / GK / ENVIRONMENTAL" — I've inferred SVG as Surveying & Geoinformatics based on context. Confirm if that's wrong.

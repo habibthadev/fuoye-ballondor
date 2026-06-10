@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #07122B;
+  --color-ink-80: rgba(7, 18, 43, 0.8);
+  --color-carbon: #222;
+  --color-white: #FFF;
+  --color-black: #000;
+  --color-blue: #0099F6;
+  --color-blue-hover: #51BDFF;
+  --color-blue-20: rgba(0, 153, 245, 0.12);
+  --color-blue-tint: #CED5F4;
+  --color-rose: #F0457D;
+  --color-surface: #F2F4F7;
+  --color-surface-2: #F8F8F9;
+  --color-border: #DBDCE0;
+  --color-border-light: #E6E7EA;
+  --color-muted: #838895;
+  --color-muted-2: #9CA0AA;
+  --color-overlay-15: rgba(255, 255, 255, 0.15);
+  --color-overlay-25: rgba(255, 255, 255, 0.25);
+  --color-overlay-60: rgba(7, 18, 43, 0.6);
+
+  --font-manrope: 'Manrope', sans-serif;
+  --font-mulish: 'Mulish', sans-serif;
+}
+
+body {
+  font-family: var(--font-manrope);
+  color: var(--color-ink);
+  background-color: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.bg-pattern-triangles {
+  background:
+    linear-gradient(135deg, #f2c8be 25%, transparent 25%) 10px 0 / 20px 20px repeat,
+    linear-gradient(225deg, #f2c8be 25%, transparent 25%) 10px 0 / 20px 20px repeat,
+    linear-gradient(45deg, #f2c8be 25%, transparent 25%) 0 0 / 20px 20px repeat,
+    linear-gradient(315deg, #f2c8be 25%, #f7e7de 25%) 0 0 / 20px 20px repeat;
+}
+
+.bg-pattern-conic {
+  --s: 50px;
+  --c1: #f1f7ff;
+  --c2: #dde9fa;
+  --c3: #c9dcf4;
+  background:
+    conic-gradient(at calc(250%/3) calc(100%/3), var(--c3) 0 120deg, #0000 0) 0% 0% / calc(var(--s)*1.732) var(--s),
+    conic-gradient(from -120deg at calc(50%/3) calc(100%/3), var(--c2) 0 120deg, #0000 0) 0% 0% / calc(var(--s)*1.732) var(--s),
+    conic-gradient(from 120deg at calc(100%/3) calc(250%/3), var(--c1) 0 120deg, #0000 0) 0% 0% / calc(var(--s)*1.732) var(--s),
+    conic-gradient(from 120deg at calc(200%/3) calc(250%/3), var(--c1) 0 120deg, #0000 0) 0% 0% / calc(var(--s)*1.732) var(--s),
+    conic-gradient(from -180deg at calc(100%/3) 50%, var(--c2) 60deg, var(--c1) 0 120deg, #0000 0) 0% 0% / calc(var(--s)*1.732) var(--s),
+    conic-gradient(from 60deg at calc(200%/3) 50%, var(--c1) 60deg, var(--c3) 0 120deg, #0000 0) 0% 0% / calc(var(--s)*1.732) var(--s),
+    conic-gradient(from -60deg at 50% calc(100%/3), var(--c1) 120deg, var(--c2) 0 240deg, var(--c3) 0) 0% 0% / calc(var(--s)*1.732) var(--s);
+}
