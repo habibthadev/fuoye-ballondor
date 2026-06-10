@@ -1,8 +1,8 @@
 import { Hono } from 'hono'
 import { z } from 'zod'
-import { verifyQStash } from '../middleware/verify-qstash.middleware.js'
-import { confirmFlutterwaveVote } from '../services/vote.service.js'
-import { logger } from '../config/pino.js'
+import { verifyQStash } from '../../middleware/verify-qstash.middleware.js'
+import { confirmFlutterwaveVote } from '../../services/vote.service.js'
+import { logger } from '../../config/pino.js'
 
 const payloadSchema = z.object({
   txRef: z.string().min(1),
