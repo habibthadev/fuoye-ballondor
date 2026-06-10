@@ -63,10 +63,6 @@ router.beforeEach(async (to, _from, next) => {
   }
 
   if (to.meta.requiresAuth) {
-    if (!auth.accessToken) {
-      next({ name: 'admin-login' })
-      return
-    }
     if (!auth.admin) {
       const ok = await auth.refreshToken()
       if (!ok) {

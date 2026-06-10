@@ -19,8 +19,8 @@ router.post('/login', loginLimit, validate(loginSchema), async (c) => {
 
   setCookie(c, 'refreshToken', result.refreshToken, {
     httpOnly: true,
-    secure: env.NODE_ENV === 'production',
-    sameSite: 'Strict',
+    secure: true,
+    sameSite: 'None',
     path: '/api/admin/auth',
     maxAge: 7 * 24 * 60 * 60,
   })
@@ -41,8 +41,8 @@ router.post('/refresh', refreshLimit, async (c) => {
 
   setCookie(c, 'refreshToken', result.refreshToken, {
     httpOnly: true,
-    secure: env.NODE_ENV === 'production',
-    sameSite: 'Strict',
+    secure: true,
+    sameSite: 'None',
     path: '/api/admin/auth',
     maxAge: 7 * 24 * 60 * 60,
   })
