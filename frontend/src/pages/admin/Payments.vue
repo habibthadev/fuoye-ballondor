@@ -14,6 +14,8 @@ const { data, isLoading } = useQuery({
       queryFn: () => apiFetch<{ data: { _id: string; voterName: string; voterEmail: string; totalAmount: number; paymentStatus: string; createdAt: string }[]; pagination: { page: number; totalPages: number } }>('/admin/votes', {
     params: { page: page.value, limit: 25 },
   }),
+  staleTime: 15_000,
+  placeholderData: (prev) => prev,
 })
 </script>
 

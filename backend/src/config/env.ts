@@ -19,6 +19,7 @@ const EnvSchema = z.object({
   SMTP_FROM: z.string().email().optional(),
   FRONTEND_URL: z.string().min(1),
   BACKEND_URL: z.string().url(),
+  CRON_SECRET: z.string().min(16).default('dev-cron-secret-do-not-use-in-prod'),
   ADMIN_SEED_EMAIL: z.string().email(),
   ADMIN_SEED_PASSWORD: z.string().min(12),
 })

@@ -28,6 +28,7 @@ interface Category {
 const { data, isLoading } = useQuery({
   queryKey: ['categories'],
   queryFn: () => fetch(`${API_BASE}/api/categories`).then(r => r.json()),
+  staleTime: 5 * 60 * 1000,
 })
 </script>
 

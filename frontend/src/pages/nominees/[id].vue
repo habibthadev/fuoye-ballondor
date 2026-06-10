@@ -37,7 +37,8 @@ interface NomineeResponse {
 const { data, isLoading } = useQuery({
   queryKey: ['nominee', nomineeId],
   queryFn: (): Promise<NomineeResponse> => fetch(`${API_BASE}/api/nominees/${nomineeId.value}`).then(r => r.json()),
-  refetchInterval: 30000,
+  staleTime: 15_000,
+  refetchInterval: 30_000,
 })
 </script>
 

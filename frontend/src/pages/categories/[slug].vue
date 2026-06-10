@@ -15,11 +15,14 @@ const slug = computed(() => route.params.slug as string)
 const { data, isLoading } = useQuery({
   queryKey: ['category-nominees', slug, page],
   queryFn: () => fetch(`${API_BASE}/api/nominees?slug=${slug.value}&page=${page.value}&limit=20`).then(r => r.json()),
+  staleTime: 60_000,
+  placeholderData: (prev) => prev,
 })
 
 const { data: category } = useQuery({
   queryKey: ['category', slug],
   queryFn: () => fetch(`${API_BASE}/api/categories/${slug.value}`).then(r => r.json()),
+  staleTime: 5 * 60 * 1000,
 })
 </script>
 

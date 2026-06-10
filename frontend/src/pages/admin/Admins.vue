@@ -31,6 +31,7 @@ const showToast = ref(false)
 const { data, isLoading } = useQuery({
   queryKey: ['admin-admins'],
   queryFn: () => apiFetch<{ data: Admin[] }>('/admin/admins'),
+  staleTime: 5 * 60 * 1000,
 })
 
 const createMutation = useMutation({

@@ -50,6 +50,7 @@ const pieChartRef = ref<any>(null)
 const { data, isLoading } = useQuery({
   queryKey: ['admin-scores'],
   queryFn: () => apiFetch<ScoresResponse>('/admin/scores'),
+  staleTime: 30_000,
 })
 
 const categories = computed(() => data.value?.data ?? [])

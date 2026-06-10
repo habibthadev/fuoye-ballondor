@@ -23,6 +23,7 @@ const queryClient = useQueryClient()
 const { data, isLoading } = useQuery({
   queryKey: ['admin-categories'],
   queryFn: () => apiFetch<{ data: Category[] }>('/admin/categories'),
+  staleTime: 5 * 60 * 1000,
 })
 
 const editingId = ref<string | null>(null)

@@ -27,6 +27,8 @@ const { data, isLoading } = useQuery({
   queryFn: () => apiFetch<{ data: Vote[]; pagination: { page: number; totalPages: number } }>('/admin/votes', {
     params: { page: page.value, limit: 25, status: statusFilter.value === 'all' ? undefined : statusFilter.value },
   }),
+  staleTime: 15_000,
+  placeholderData: (prev) => prev,
 })
 
 const statusVariant: Record<string, 'default' | 'success' | 'warning' | 'danger'> = {

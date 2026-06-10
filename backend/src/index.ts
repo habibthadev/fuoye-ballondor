@@ -10,6 +10,7 @@ import categoriesRouter from './routes/public/categories.route.js'
 import nomineesRouter from './routes/public/nominees.route.js'
 import votesRouter from './routes/public/votes.route.js'
 import flwWebhookRouter from './routes/webhooks/flutterwave.route.js'
+import cronRouter from './routes/cron/reconciliation.route.js'
 import adminRouter from './routes/admin/index.js'
 import { Category } from './models/category.model.js'
 import { Nominee } from './models/nominee.model.js'
@@ -68,6 +69,7 @@ app.route('/api/nominees', nomineesRouter)
 
 app.route('/api/votes', votesRouter)
 app.route('/api/webhooks/flutterwave', flwWebhookRouter)
+app.route('/api/cron', cronRouter)
 app.route('/api/admin', adminRouter)
 
 async function seedAdmin() {

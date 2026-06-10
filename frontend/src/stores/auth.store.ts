@@ -17,6 +17,7 @@ export const useAuthStore = defineStore('auth', () => {
   let refreshPromise: Promise<boolean> | null = null
 
   async function login(email: string, password: string) {
+    refreshPromise = null
     const res = await fetch(`${API_BASE}/api/admin/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -58,7 +59,6 @@ export const useAuthStore = defineStore('auth', () => {
       return true
     })()
 
-    refreshPromise.finally(() => { refreshPromise = null })
     return refreshPromise
   }
 

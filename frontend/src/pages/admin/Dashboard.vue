@@ -37,6 +37,7 @@ interface DashboardData {
 const { data, isLoading } = useQuery({
   queryKey: ['admin-dashboard'],
   queryFn: () => apiFetch<{ data: DashboardData }>('/admin/dashboard'),
+  staleTime: 10_000,
   refetchInterval: 15000,
 })
 

@@ -30,6 +30,7 @@ const activeCategory = ref<string | null>(null)
 const { data: categoriesData } = useQuery({
   queryKey: ['admin-categories-list'],
   queryFn: () => apiFetch<{ data: Category[] }>('/admin/categories'),
+  staleTime: 5 * 60 * 1000,
 })
 
 const categories = computed<Category[]>(() => categoriesData.value?.data ?? [])
@@ -39,6 +40,8 @@ const { data, isLoading } = useQuery({
   queryFn: () => apiFetch<{ data: Nominee[]; pagination: { page: number; totalPages: number } }>('/admin/nominees', {
     params: { page: page.value, limit: 25, search: search.value || undefined, categoryId: activeCategory.value || undefined },
   }),
+  staleTime: 30_000,
+  placeholderData: (prev) => prev,
 })
 
 function selectCategory(id: string | null) {
