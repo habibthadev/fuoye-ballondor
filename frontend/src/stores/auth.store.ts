@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { API_BASE } from '../config/api.js'
 
 interface Admin {
@@ -12,7 +12,9 @@ interface Admin {
 export const useAuthStore = defineStore('auth', () => {
   const admin = ref<Admin | null>(null)
   const accessToken = ref<string | null>(localStorage.getItem('accessToken'))
-  const isAuthenticated = ref(!!accessToken.value)
+  const isAuthenticated = computed(() => !!admin.value)
+
+  let refreshPromise: Promise<boolean> | null = null
 
   async function login(email: string, password: string) {
     const res = await fetch(`${API_BASE}/api/admin/auth/login`, {
@@ -30,29 +32,38 @@ export const useAuthStore = defineStore('auth', () => {
     const data = await res.json()
     accessToken.value = data.accessToken
     admin.value = data.admin
-    isAuthenticated.value = true
     localStorage.setItem('accessToken', data.accessToken)
   }
 
   async function refreshToken() {
-    const res = await fetch(`${API_BASE}/api/admin/auth/refresh`, {
-      method: 'POST',
-      credentials: 'include',
-    })
+    if (refreshPromise) return refreshPromise
 
-    if (!res.ok) {
-      await logout()
-      return false
-    }
+    refreshPromise = (async () => {
+      const res = await fetch(`${API_BASE}/api/admin/auth/refresh`, {
+        method: 'POST',
+        credentials: 'include',
+      })
 
-    const data = await res.json()
-    accessToken.value = data.accessToken
-    admin.value = data.admin
-    localStorage.setItem('accessToken', data.accessToken)
-    return true
+      if (!res.ok) {
+        accessToken.value = null
+        admin.value = null
+        localStorage.removeItem('accessToken')
+        return false
+      }
+
+      const data = await res.json()
+      accessToken.value = data.accessToken
+      admin.value = data.admin
+      localStorage.setItem('accessToken', data.accessToken)
+      return true
+    })()
+
+    refreshPromise.finally(() => { refreshPromise = null })
+    return refreshPromise
   }
 
   async function logout() {
+    refreshPromise = null
     try {
       await fetch(`${API_BASE}/api/admin/auth/logout`, {
         method: 'POST',
@@ -62,7 +73,6 @@ export const useAuthStore = defineStore('auth', () => {
     } catch {}
     accessToken.value = null
     admin.value = null
-    isAuthenticated.value = false
     localStorage.removeItem('accessToken')
   }
 

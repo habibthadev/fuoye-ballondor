@@ -12,18 +12,20 @@ import type { AppEnv } from '../../types.js'
 
 const router = new Hono<AppEnv>()
 
+const cookieOpts = {
+  httpOnly: true,
+  secure: env.NODE_ENV === 'production',
+  sameSite: env.NODE_ENV === 'production' ? 'None' : 'Lax',
+  path: '/api/admin/auth',
+  maxAge: 7 * 24 * 60 * 60,
+} as const
+
 router.post('/login', loginLimit, validate(loginSchema), async (c) => {
   const { email, password } = c.get('validatedData') as { email: string; password: string }
 
   const result = await authService.loginAdmin(email, password)
 
-  setCookie(c, 'refreshToken', result.refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'None',
-    path: '/api/admin/auth',
-    maxAge: 7 * 24 * 60 * 60,
-  })
+  setCookie(c, 'refreshToken', result.refreshToken, cookieOpts)
 
   return c.json({
     accessToken: result.accessToken,
@@ -39,13 +41,7 @@ router.post('/refresh', refreshLimit, async (c) => {
 
   const result = await authService.refreshTokens(refreshToken)
 
-  setCookie(c, 'refreshToken', result.refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'None',
-    path: '/api/admin/auth',
-    maxAge: 7 * 24 * 60 * 60,
-  })
+  setCookie(c, 'refreshToken', result.refreshToken, cookieOpts)
 
   return c.json({
     accessToken: result.accessToken,

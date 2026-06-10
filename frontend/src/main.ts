@@ -3,12 +3,19 @@ import { createPinia } from 'pinia'
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import App from './App.vue'
 import router from './router'
+import { useAuthStore } from './stores/auth.store'
 import './assets/css/main.css'
 
 const app = createApp(App)
 
-app.use(createPinia())
+const pinia = createPinia()
+app.use(pinia)
 app.use(router)
 app.use(VueQueryPlugin)
+
+const auth = useAuthStore()
+if (auth.accessToken) {
+  auth.refreshToken()
+}
 
 app.mount('#app')
