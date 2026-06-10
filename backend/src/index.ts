@@ -10,14 +10,13 @@ import categoriesRouter from './routes/public/categories.route.js'
 import nomineesRouter from './routes/public/nominees.route.js'
 import votesRouter from './routes/public/votes.route.js'
 import flwWebhookRouter from './routes/webhooks/flutterwave.route.js'
-import cronRouter from './routes/cron/reconciliation.route.js'
+import jobsRouter from './routes/jobs/index.js'
 import adminRouter from './routes/admin/index.js'
 import { Category } from './models/category.model.js'
 import { Nominee } from './models/nominee.model.js'
 import { Admin } from './models/admin.model.js'
 import { Settings } from './models/settings.model.js'
 import { hashPassword } from './services/auth.service.js'
-import { reconcilePendingOrders } from './services/vote.service.js'
 import { AppError } from './utils/errors.js'
 import type { AppEnv } from './types.js'
 
@@ -69,7 +68,7 @@ app.route('/api/nominees', nomineesRouter)
 
 app.route('/api/votes', votesRouter)
 app.route('/api/webhooks/flutterwave', flwWebhookRouter)
-app.route('/api/cron', cronRouter)
+app.route('/api/jobs', jobsRouter)
 app.route('/api/admin', adminRouter)
 
 async function seedAdmin() {
@@ -124,32 +123,20 @@ async function seedSettings() {
   pinoLogger.info('Default settings created')
 }
 
-function startReconciliation() {
-  setInterval(() => {
-    reconcilePendingOrders().catch((err) => {
-      pinoLogger.error({ err }, 'Reconciliation job failed')
-    })
-  }, 5 * 60 * 1000)
-  pinoLogger.info('Payment reconciliation job started (every 5 min)')
-}
-
-async function init(isServerlessEnv = false) {
+async function init() {
   await connectDB()
   await seedAdmin()
   await seedCategories()
   await migrateSettings()
   await migrateCategoryPrices()
   await seedSettings()
-  if (!isServerlessEnv) startReconciliation()
-  pinoLogger.info({ event: 'app_initialized', serverless: isServerlessEnv })
+  pinoLogger.info({ event: 'app_initialized' })
 }
 
-const isServerless = env.NODE_ENV === 'production'
-
-if (isServerless) {
-  init(true)
+if (env.NODE_ENV === 'production') {
+  init()
 } else {
-  init(false).then(() => {
+  init().then(() => {
     import('@hono/node-server').then(({ serve }) => {
       serve({
         fetch: app.fetch,

@@ -19,7 +19,9 @@ const EnvSchema = z.object({
   SMTP_FROM: z.string().email().optional(),
   FRONTEND_URL: z.string().min(1),
   BACKEND_URL: z.string().url(),
-  CRON_SECRET: z.string().min(16).default('dev-cron-secret-do-not-use-in-prod'),
+  QSTASH_TOKEN: z.string().min(1),
+  QSTASH_CURRENT_SIGNING_KEY: z.string().min(1),
+  QSTASH_NEXT_SIGNING_KEY: z.string().min(1),
   ADMIN_SEED_EMAIL: z.string().email(),
   ADMIN_SEED_PASSWORD: z.string().min(12),
 })

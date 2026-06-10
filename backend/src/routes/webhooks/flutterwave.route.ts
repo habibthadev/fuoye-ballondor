@@ -1,7 +1,8 @@
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { env } from '../../config/env.js'
-import * as voteService from '../../services/vote.service.js'
+import { qstash } from '../../lib/qstash.js'
+import { handleDispute } from '../../services/vote.service.js'
 import { logger } from '../../config/pino.js'
 
 const flwWebhookSchema = z.object({
@@ -55,13 +56,17 @@ router.post('/', async (c) => {
         logger.info({ txRef: tx_ref, status: data.status }, 'Flutterwave webhook — non-successful, skipping')
         return c.json({ received: true }, 200)
       }
-      const signal = AbortSignal.timeout(10_000)
-      await voteService.confirmFlutterwaveVote(tx_ref, id, signal)
+      await qstash.publishJSON({
+        url: `${env.BACKEND_URL}/api/jobs/reconcile-payment`,
+        body: { txRef: tx_ref, flwTxId: id },
+        retries: 3,
+      })
+      logger.info({ txRef: tx_ref, flwId: id }, 'Reconciliation job enqueued')
       break
     }
     case 'charge.dispute.create':
     case 'charge.dispute.remind':
-      await voteService.handleDispute(tx_ref)
+      await handleDispute(tx_ref)
       break
     default:
       logger.info({ event, txRef: tx_ref }, 'Flutterwave webhook — unhandled event type')
