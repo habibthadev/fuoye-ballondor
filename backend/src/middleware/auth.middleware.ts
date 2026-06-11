@@ -25,3 +25,11 @@ export const superadminMiddleware = createMiddleware(async (c, next) => {
   }
   await next()
 })
+
+export const requireRole = (...roles: string[]) => createMiddleware(async (c, next) => {
+  const admin = c.get('admin')
+  if (!admin || !roles.includes(admin.role)) {
+    return c.json({ error: 'Insufficient permissions' }, 403)
+  }
+  await next()
+})

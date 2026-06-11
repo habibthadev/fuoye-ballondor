@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '../../stores/auth.store'
 import { HugeiconsIcon } from '@hugeicons/vue'
@@ -37,16 +37,18 @@ onUnmounted(() => {
   document.removeEventListener('keydown', onKeydown)
 })
 
-const navItems = [
-  { label: 'Dashboard', to: '/admin/dashboard', icon: DashboardSquare01Icon },
-  { label: 'Scores', to: '/admin/scores', icon: BarChartIcon },
-  { label: 'Nominees', to: '/admin/nominees', icon: UserGroupIcon },
-  { label: 'Votes', to: '/admin/votes', icon: CheckmarkCircle02Icon },
-  { label: 'Payments', to: '/admin/payments', icon: CreditCardIcon },
-  { label: 'Categories', to: '/admin/categories', icon: Folder01Icon },
-  { label: 'Admins', to: '/admin/admins', icon: Shield01Icon },
-  { label: 'Settings', to: '/admin/settings', icon: Settings01Icon },
+const allNavItems = [
+  { label: 'Dashboard', to: '/admin/dashboard', icon: DashboardSquare01Icon, roles: ['admin', 'superadmin'] },
+  { label: 'Scores', to: '/admin/scores', icon: BarChartIcon, roles: ['moderator', 'admin', 'superadmin'] },
+  { label: 'Nominees', to: '/admin/nominees', icon: UserGroupIcon, roles: ['admin', 'superadmin'] },
+  { label: 'Votes', to: '/admin/votes', icon: CheckmarkCircle02Icon, roles: ['admin', 'superadmin'] },
+  { label: 'Payments', to: '/admin/payments', icon: CreditCardIcon, roles: ['admin', 'superadmin'] },
+  { label: 'Categories', to: '/admin/categories', icon: Folder01Icon, roles: ['admin', 'superadmin'] },
+  { label: 'Admins', to: '/admin/admins', icon: Shield01Icon, roles: ['superadmin'] },
+  { label: 'Settings', to: '/admin/settings', icon: Settings01Icon, roles: ['superadmin'] },
 ]
+
+const navItems = computed(() => allNavItems.filter(item => item.roles.includes(auth.admin?.role ?? '')))
 
 function isActive(path: string) {
   return route.path === path
