@@ -15,8 +15,8 @@ const router = new Hono<AppEnv>()
 const cookieOpts = {
   httpOnly: true,
   secure: env.NODE_ENV === 'production',
-  sameSite: env.NODE_ENV === 'production' ? 'None' : 'Lax',
-  path: '/api/admin/auth',
+  sameSite: 'Lax',
+  path: '/api',
   maxAge: 7 * 24 * 60 * 60,
 } as const
 
@@ -54,7 +54,7 @@ router.post('/logout', authMiddleware, async (c) => {
   if (refreshToken) {
     await authService.logoutAdmin(refreshToken)
   }
-  deleteCookie(c, 'refreshToken', { path: '/api/admin/auth' })
+  deleteCookie(c, 'refreshToken', { path: '/api' })
   return c.json({ message: 'Logged out' })
 })
 
