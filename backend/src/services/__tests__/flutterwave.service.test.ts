@@ -60,7 +60,7 @@ describe('initializePayment', () => {
 
     await initializePayment(params)
 
-    const callBody = JSON.parse(mockFetch.mock.calls[0][1].body)
+    const callBody = JSON.parse(mockFetch.mock.calls[0]![1]!.body as string)
     expect(callBody.redirect_url).toContain(params.txRef)
     expect(callBody.tx_ref).toBe(params.txRef)
   })
@@ -107,7 +107,7 @@ describe('initializePayment', () => {
 
     await initializePayment(params)
 
-    const callBody = JSON.parse(mockFetch.mock.calls[0][1].body)
+    const callBody = JSON.parse(mockFetch.mock.calls[0]![1]!.body as string)
     expect(callBody.customizations.description).toContain('John Doe')
   })
 })

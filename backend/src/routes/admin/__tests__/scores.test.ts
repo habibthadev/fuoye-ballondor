@@ -43,7 +43,7 @@ describe('Admin Scores operations', () => {
     )
 
     expect(scores).toHaveLength(1)
-    expect(scores[0].nominees).toHaveLength(2)
+    expect(scores[0]!.nominees).toHaveLength(2)
     expect(Vote.aggregate).toHaveBeenCalledWith(
       expect.arrayContaining([
         expect.objectContaining({ $match: expect.objectContaining({ categoryId: 'cat-1' }) }),
@@ -70,6 +70,6 @@ describe('Admin Scores operations', () => {
       }),
     )
 
-    expect(scores[0].nominees).toEqual([])
+    expect(scores[0]!.nominees).toEqual([])
   })
 })

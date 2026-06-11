@@ -22,10 +22,10 @@ describe('uploadImage', () => {
 
   it('uploads a buffer and returns url and publicId', async () => {
     const mockResult = { secure_url: 'https://res.cloudinary.com/demo/image/upload/v1/test', public_id: 'test-public' }
-    vi.mocked(cloudinary.uploader.upload_stream).mockImplementation((_opts: unknown, cb: (err: unknown, result?: unknown) => void) => {
+    vi.mocked(cloudinary.uploader.upload_stream).mockImplementation(((_opts: unknown, cb: (...args: unknown[]) => void) => {
       cb(null, mockResult)
       return { end: vi.fn() }
-    })
+    }) as any)
 
     const result = await uploadImage(Buffer.from('fake-image'), 'nominees')
 
@@ -35,10 +35,10 @@ describe('uploadImage', () => {
 
   it('uploads a base64 string and returns result', async () => {
     const mockResult = { secure_url: 'https://res.cloudinary.com/demo/image/upload/v1/str', public_id: 'str-id' }
-    vi.mocked(cloudinary.uploader.upload_stream).mockImplementation((_opts: unknown, cb: (err: unknown, result?: unknown) => void) => {
+    vi.mocked(cloudinary.uploader.upload_stream).mockImplementation(((_opts: unknown, cb: (...args: unknown[]) => void) => {
       cb(null, mockResult)
       return { end: vi.fn() }
-    })
+    }) as any)
 
     const result = await uploadImage('base64string', 'photos')
 
@@ -47,19 +47,19 @@ describe('uploadImage', () => {
   })
 
   it('rejects with AppError on upload failure', async () => {
-    vi.mocked(cloudinary.uploader.upload_stream).mockImplementation((_opts: unknown, cb: (err: unknown, result?: unknown) => void) => {
-      cb(new Error('Upload failed'), undefined)
+    vi.mocked(cloudinary.uploader.upload_stream).mockImplementation(((_opts: unknown, cb: (...args: unknown[]) => void) => {
+      cb(new Error('Upload failed'))
       return { end: vi.fn() }
-    })
+    }) as any)
 
     await expect(uploadImage(Buffer.from('x'), 'folder')).rejects.toThrow()
   })
 
   it('passes folder and resource_type image to upload_stream', async () => {
-    vi.mocked(cloudinary.uploader.upload_stream).mockImplementation((_opts: unknown, cb: (err: unknown, result?: unknown) => void) => {
+    vi.mocked(cloudinary.uploader.upload_stream).mockImplementation(((_opts: unknown, cb: (...args: unknown[]) => void) => {
       cb(null, { secure_url: 'url', public_id: 'pid' })
       return { end: vi.fn() }
-    })
+    }) as any)
 
     await uploadImage(Buffer.from('data'), 'my-folder')
 
@@ -70,10 +70,10 @@ describe('uploadImage', () => {
   })
 
   it('passes transformation and format options', async () => {
-    vi.mocked(cloudinary.uploader.upload_stream).mockImplementation((_opts: unknown, cb: (err: unknown, result?: unknown) => void) => {
+    vi.mocked(cloudinary.uploader.upload_stream).mockImplementation(((_opts: unknown, cb: (...args: unknown[]) => void) => {
       cb(null, { secure_url: 'url', public_id: 'pid' })
       return { end: vi.fn() }
-    })
+    }) as any)
 
     await uploadImage(Buffer.from('d'), 'folder', { transformation: 'c_fill,w_300', format: 'webp' })
 

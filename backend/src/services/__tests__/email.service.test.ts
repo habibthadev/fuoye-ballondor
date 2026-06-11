@@ -13,7 +13,7 @@ vi.mock('../../config/env.js', () => ({
 vi.mock('nodemailer', async (importOriginal) => {
   const actual = await importOriginal()
   return {
-    ...actual,
+    ...(actual as object),
     default: {
       createTransport: vi.fn().mockReturnValue({
         sendMail: vi.fn().mockResolvedValue({ messageId: 'mock-id' }),
@@ -95,7 +95,7 @@ describe('sendDisputeAlert', () => {
 
     await sendDisputeAlert('admin@fuoye.edu.ng', details)
 
-    const call = sendMailSpy.mock.calls[0][0] as { subject: string }
+    const call = sendMailSpy.mock.calls[0]![0] as { subject: string }
     expect(call.subject.toLowerCase()).toContain('chargeback')
   })
 })

@@ -66,7 +66,7 @@ async function main() {
   // --- Settings (single doc, upsert) ---
   const settings = await devSet.find({}).toArray()
   if (settings.length > 0) {
-    const { _id, __v, createdAt, updatedAt, ...rest } = settings[0]
+    const { _id, __v, createdAt, updatedAt, ...rest } = settings[0]!
     await prodSet.updateOne(
       {},
       { $set: { ...rest, updatedAt: new Date() }, $setOnInsert: { createdAt: createdAt ?? new Date() } },
