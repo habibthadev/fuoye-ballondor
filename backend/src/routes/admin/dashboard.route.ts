@@ -14,7 +14,7 @@ router.get('/', async (c) => {
   const [totals, pendingCount, activeNominees, todayVotes, yesterdayVotes, categoryStats, recentPending] = await Promise.all([
     Vote.aggregate([
       { $match: { paymentStatus: 'confirmed' } },
-      { $group: { _id: null, totalVotes: { $sum: '$quantity' }, totalRevenue: { $sum: '$totalCharged' } } },
+      { $group: { _id: null, totalVotes: { $sum: '$quantity' }, totalRevenue: { $sum: '$totalAmount' } } },
     ]).then(r => r[0] ?? { totalVotes: 0, totalRevenue: 0 }),
     Vote.countDocuments({ paymentStatus: { $in: ['pending', 'processing'] } }),
     Nominee.countDocuments({ isActive: true }),
@@ -28,7 +28,7 @@ router.get('/', async (c) => {
     ]).then(r => r[0]?.count ?? 0),
     Vote.aggregate([
       { $match: { paymentStatus: 'confirmed' } },
-      { $group: { _id: '$categoryId', totalVotes: { $sum: '$quantity' }, totalRevenue: { $sum: '$totalCharged' } } },
+      { $group: { _id: '$categoryId', totalVotes: { $sum: '$quantity' }, totalRevenue: { $sum: '$totalAmount' } } },
       { $lookup: { from: 'categories', localField: '_id', foreignField: '_id', as: 'category' } },
       { $unwind: '$category' },
       { $lookup: { from: 'nominees', localField: '_id', foreignField: 'categoryId', as: 'nominees' } },
