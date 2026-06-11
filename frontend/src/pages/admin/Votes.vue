@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { computed } from 'vue'
 import { apiFetch } from '../../utils/api'
 import AppBadge from '../../components/ui/AppBadge.vue'
 import AppEmpty from '../../components/ui/AppEmpty.vue'
@@ -19,11 +20,18 @@ interface Vote {
   createdAt: string
 }
 
-const page = ref(1)
-const statusFilter = ref('all')
+const route = useRoute()
+const router = useRouter()
+
+const page = computed(() => Number(route.query.page) || 1)
+const statusFilter = computed(() => (route.params.status as string) || 'all')
+
+function setStatusFilter(status: string) {
+  router.push(status === 'all' ? '/admin/votes' : `/admin/votes/${status}`)
+}
 
 const { data, isLoading } = useQuery({
-  queryKey: ['admin-votes', page, statusFilter] as const,
+  queryKey: ['admin-votes', statusFilter, page] as const,
   queryFn: () => apiFetch<{ data: Vote[]; pagination: { page: number; totalPages: number } }>('/admin/votes', {
     params: { page: page.value, limit: 25, status: statusFilter.value === 'all' ? undefined : statusFilter.value },
   }),
@@ -51,7 +59,7 @@ const statuses = ['all', 'pending', 'confirmed', 'failed'] as const
         :key="s"
         class="rounded-full px-4 py-1.5 text-xs font-700 transition-colors"
         :class="statusFilter === s ? 'bg-blue text-white' : 'bg-surface text-muted hover:bg-border'"
-        @click="statusFilter = s; page = 1"
+        @click="setStatusFilter(s)"
       >
         {{ s.charAt(0).toUpperCase() + s.slice(1) }}
       </button>
@@ -94,7 +102,7 @@ const statuses = ['all', 'pending', 'confirmed', 'failed'] as const
       </div>
 
       <div v-if="data?.pagination && data.pagination.totalPages > 1">
-        <AppPagination :page="data.pagination.page" :total-pages="data.pagination.totalPages" @change="page = $event" />
+        <AppPagination :page="data.pagination.page" :total-pages="data.pagination.totalPages" @change="p => router.push({ query: { ...route.query, page: p } })" />
       </div>
     </div>
   </div>

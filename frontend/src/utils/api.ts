@@ -1,4 +1,5 @@
 import { API_BASE } from '../config/api.js'
+import { useAuthStore } from '../stores/auth.store'
 
 let isRefreshing = false
 let pendingQueue: Array<{
@@ -32,6 +33,10 @@ async function refreshAccessToken(): Promise<string> {
 
   const data = await res.json()
   setToken(data.accessToken)
+  try {
+    const auth = useAuthStore()
+    auth.accessToken = data.accessToken
+  } catch {}
   return data.accessToken
 }
 

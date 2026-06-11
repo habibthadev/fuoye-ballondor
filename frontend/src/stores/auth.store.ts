@@ -59,7 +59,11 @@ export const useAuthStore = defineStore('auth', () => {
       return true
     })()
 
-    return refreshPromise
+    try {
+      return await refreshPromise
+    } finally {
+      refreshPromise = null
+    }
   }
 
   async function logout() {

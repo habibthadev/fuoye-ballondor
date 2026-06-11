@@ -23,9 +23,12 @@ app.use(VueQueryPlugin, {
   },
 })
 
-const auth = useAuthStore()
-if (auth.accessToken) {
-  auth.refreshToken()
+async function init() {
+  const auth = useAuthStore()
+  if (auth.accessToken) {
+    await auth.refreshToken()
+  }
+  app.mount('#app')
 }
 
-app.mount('#app')
+init()

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '../../stores/auth.store'
 import { HugeiconsIcon } from '@hugeicons/vue'
@@ -11,21 +12,23 @@ const emit = defineEmits<{
   'open-nav': []
 }>()
 
-const pageTitles: Record<string, string> = {
-  '/admin/dashboard': 'Dashboard',
-  '/admin/scores': 'Scores',
-  '/admin/nominees': 'Nominees',
-  '/admin/votes': 'Votes',
-  '/admin/payments': 'Payments',
-  '/admin/categories': 'Categories',
-  '/admin/admins': 'Admins',
-  '/admin/settings': 'Settings',
-}
+const pageTitle = computed(() => {
+  const path = route.path
+  if (path.startsWith('/admin/dashboard')) return 'Dashboard'
+  if (path.startsWith('/admin/scores')) return 'Scores'
+  if (path.startsWith('/admin/nominees')) return 'Nominees'
+  if (path.startsWith('/admin/votes')) return 'Votes'
+  if (path.startsWith('/admin/payments')) return 'Payments'
+  if (path.startsWith('/admin/categories')) return 'Categories'
+  if (path.startsWith('/admin/admins')) return 'Admins'
+  if (path.startsWith('/admin/settings')) return 'Settings'
+  return 'Admin'
+})
 </script>
 
 <template>
   <header class="flex shrink-0 items-center justify-between border-b border-border/50 bg-white px-4 py-3 md:px-6 md:py-4">
-    <h1 class="min-w-0 truncate text-lg font-800 text-ink sm:text-xl md:text-2xl">{{ pageTitles[route.path] || 'Admin' }}</h1>
+    <h1 class="min-w-0 truncate text-lg font-800 text-ink sm:text-xl md:text-2xl">{{ pageTitle }}</h1>
     <div class="flex shrink-0 items-center gap-3">
       <span class="hidden truncate text-sm text-muted sm:inline">{{ auth.admin?.name || 'Admin' }}</span>
       <span class="shrink-0 rounded-full bg-blue/10 px-2.5 py-0.5 text-[10px] font-700 tracking-wider text-blue uppercase sm:px-3 sm:text-xs">{{ auth.admin?.role }}</span>
