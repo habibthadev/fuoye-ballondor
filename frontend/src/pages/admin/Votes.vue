@@ -23,11 +23,11 @@ interface Vote {
 const route = useRoute()
 const router = useRouter()
 
+const statusFilter = computed(() => (route.query.status as string) || 'all')
 const page = computed(() => Number(route.query.page) || 1)
-const statusFilter = computed(() => (route.params.status as string) || 'all')
 
 function setStatusFilter(status: string) {
-  router.push(status === 'all' ? '/admin/votes' : `/admin/votes/${status}`)
+  router.push({ path: '/admin/votes', query: { ...route.query, status: status === 'all' ? undefined : status, page: undefined } })
 }
 
 const { data, isLoading } = useQuery({
@@ -102,7 +102,7 @@ const statuses = ['all', 'pending', 'confirmed', 'failed'] as const
       </div>
 
       <div v-if="data?.pagination && data.pagination.totalPages > 1">
-        <AppPagination :page="data.pagination.page" :total-pages="data.pagination.totalPages" @change="p => router.push({ query: { ...route.query, page: p } })" />
+        <AppPagination :page="data.pagination.page" :total-pages="data.pagination.totalPages" @change="p => router.push({ query: { ...route.query, page: String(p) } })" />
       </div>
     </div>
   </div>

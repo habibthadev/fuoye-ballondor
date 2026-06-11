@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useQuery } from '@tanstack/vue-query'
 import { Bar, Pie } from 'vue-chartjs'
 import {
@@ -43,7 +44,9 @@ interface ScoresResponse {
   data: CategoryScore[]
 }
 
-const activeCategory = ref<string | null>(null)
+const route = useRoute()
+const router = useRouter()
+const activeCategory = computed(() => (route.query.category as string) || null)
 const barChartRef = ref<any>(null)
 const pieChartRef = ref<any>(null)
 
@@ -58,9 +61,10 @@ const categories = computed(() => data.value?.data ?? [])
 const activeScores = computed<CategoryScore | null>(() => {
   if (!activeCategory.value && categories.value.length) {
     const first = categories.value[0]
-    if (first) activeCategory.value = first._id
+    if (first) router.replace({ query: { category: first.slug } })
+    return first ?? null
   }
-  return categories.value.find(c => c._id === activeCategory.value) ?? null
+  return categories.value.find(c => c.slug === activeCategory.value || c._id === activeCategory.value) ?? null
 })
 
 const barColors = ['#0099F6', '#F0457D', '#07122B', '#4FC3F7', '#F06292', '#6C7A89', '#A8D8EA']
@@ -203,8 +207,8 @@ function downloadChart(chartRef: any, filename: string) {
           v-for="cat in categories"
           :key="cat._id"
           class="shrink-0 rounded-full px-4 py-1.5 text-xs font-700 transition-colors whitespace-nowrap sm:px-5 sm:py-2 sm:text-sm"
-          :class="activeCategory === cat._id ? 'bg-blue text-white' : 'bg-surface text-muted hover:bg-border hover:text-ink'"
-          @click="activeCategory = cat._id"
+          :class="(activeCategory === cat._id || activeCategory === cat.slug) ? 'bg-blue text-white' : 'bg-surface text-muted hover:bg-border hover:text-ink'"
+          @click="router.push({ query: { category: cat.slug } })"
         >
           {{ cat.name }}
           <span class="ml-1 text-xs opacity-60">({{ cat.totalVotes }})</span>

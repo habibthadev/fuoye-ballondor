@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { apiFetch } from '../../utils/api'
 import AppBadge from '../../components/ui/AppBadge.vue'
 import AppEmpty from '../../components/ui/AppEmpty.vue'
 import AppPagination from '../../components/ui/AppPagination.vue'
 import AppSkeleton from '../../components/ui/AppSkeleton.vue'
 
-const page = ref(1)
+const route = useRoute()
+const router = useRouter()
+const page = computed(() => Number(route.query.page) || 1)
 
 const { data, isLoading } = useQuery({
   queryKey: ['admin-payments', page],
@@ -54,7 +57,7 @@ const { data, isLoading } = useQuery({
       </div>
 
       <div v-if="data?.pagination && data.pagination.totalPages > 1" class="mt-6">
-        <AppPagination :page="data.pagination.page" :total-pages="data.pagination.totalPages" @change="page = $event" />
+        <AppPagination :page="data.pagination.page" :total-pages="data.pagination.totalPages" @change="p => router.push({ query: { ...route.query, page: String(p) } })" />
       </div>
     </template>
   </div>

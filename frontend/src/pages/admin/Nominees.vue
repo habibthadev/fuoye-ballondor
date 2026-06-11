@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { apiFetch } from '../../utils/api'
 import AppBadge from '../../components/ui/AppBadge.vue'
 import AppEmpty from '../../components/ui/AppEmpty.vue'
@@ -23,9 +24,11 @@ interface Nominee {
   isActive: boolean
 }
 
-const page = ref(1)
-const search = ref('')
-const activeCategory = ref<string | null>(null)
+const route = useRoute()
+const router = useRouter()
+const page = computed(() => Number(route.query.page) || 1)
+const search = computed(() => (route.query.search as string) || '')
+const activeCategory = computed(() => (route.query.category as string) || null)
 
 const { data: categoriesData } = useQuery({
   queryKey: ['admin-categories-list'],
@@ -45,8 +48,11 @@ const { data, isLoading } = useQuery({
 })
 
 function selectCategory(id: string | null) {
-  activeCategory.value = id
-  page.value = 1
+  router.push({ query: { ...route.query, category: id || undefined, page: undefined } })
+}
+
+function onSearch(v: string) {
+  router.push({ query: { ...route.query, search: v || undefined, page: undefined } })
 }
 </script>
 
@@ -57,6 +63,7 @@ function selectCategory(id: string | null) {
         <button
           class="shrink-0 rounded-full px-4 py-1.5 text-xs font-700 transition-colors whitespace-nowrap"
           :class="!activeCategory ? 'bg-blue text-white' : 'bg-surface text-muted hover:bg-border hover:text-ink'"
+
           @click="selectCategory(null)"
         >All</button>
         <button
@@ -68,9 +75,10 @@ function selectCategory(id: string | null) {
         >{{ cat.name }}</button>
       </div>
       <input
-        v-model="search"
+        :value="search"
         placeholder="Search nominees..."
         class="w-full rounded-xl border-2 border-border px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-muted-2 focus:border-blue sm:w-64"
+        @input="onSearch(($event.target as HTMLInputElement).value)"
       />
     </div>
 
@@ -106,7 +114,7 @@ function selectCategory(id: string | null) {
       </div>
 
       <div v-if="data?.pagination && data.pagination.totalPages > 1" class="mt-6">
-        <AppPagination :page="data.pagination.page" :total-pages="data.pagination.totalPages" @change="page = $event" />
+        <AppPagination :page="data.pagination.page" :total-pages="data.pagination.totalPages" @change="p => router.push({ query: { ...route.query, page: String(p) } })" />
       </div>
     </template>
   </div>
