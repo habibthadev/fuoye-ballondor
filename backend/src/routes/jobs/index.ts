@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { verifyQStash } from '../../middleware/verify-qstash.middleware.js'
-import { confirmFlutterwaveVote } from '../../services/vote.service.js'
+import { confirmFlutterwaveVote, reconcilePendingOrders } from '../../services/vote.service.js'
 import { logger } from '../../config/pino.js'
 
 const payloadSchema = z.object({
@@ -28,6 +28,29 @@ router.post('/reconcile-payment', verifyQStash, async (c) => {
     return c.json({ ok: true })
   } catch (err) {
     logger.error({ txRef, err }, 'Reconciliation job failed')
+    return c.json({ ok: false }, 500)
+  }
+})
+
+router.post('/cleanup-pending', verifyQStash, async (c) => {
+  const start = Date.now()
+
+  try {
+    await reconcilePendingOrders()
+
+    logger.info({
+      job: 'cleanup-pending',
+      durationMs: Date.now() - start,
+    }, 'Pending vote cleanup completed')
+
+    return c.json({ ok: true })
+  } catch (err) {
+    logger.error({
+      job: 'cleanup-pending',
+      err,
+      durationMs: Date.now() - start,
+    }, 'Pending vote cleanup failed')
+
     return c.json({ ok: false }, 500)
   }
 })
