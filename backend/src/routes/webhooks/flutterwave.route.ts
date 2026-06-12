@@ -9,7 +9,7 @@ router.post('/', async (c) => {
   const hash = c.req.header('verif-hash')
   if (!hash || hash !== env.FLW_WEBHOOK_SECRET) {
     logger.warn({ hash }, 'Invalid Flutterwave webhook hash')
-    return c.json({ received: true }, 200)
+    return c.json({ error: 'Invalid signature' }, 401)
   }
 
   let event: string
@@ -36,9 +36,12 @@ router.post('/', async (c) => {
   logger.info({ event, txRef: tx_ref, flwId: id }, 'Flutterwave webhook received')
 
   if (event === 'charge.completed' && dataObj.status === 'successful') {
-    await confirmFlutterwaveVote(tx_ref, id).catch((err) =>
+    try {
+      await confirmFlutterwaveVote(tx_ref, id, AbortSignal.timeout(8000))
+    } catch (err) {
       logger.error({ err, txRef: tx_ref, flwId: id }, 'Vote confirmation failed in webhook')
-    )
+      return c.json({ received: true, error: 'processing_failed' }, 500)
+    }
   } else if (event === 'charge.dispute.create' || event === 'charge.dispute.remind') {
     await handleDispute(tx_ref).catch((err) =>
       logger.error({ err, txRef: tx_ref }, 'Dispute handling failed')
