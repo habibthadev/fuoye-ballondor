@@ -262,14 +262,14 @@ export async function reconcilePendingOrders() {
     logger.info({ count: abandoned.modifiedCount }, 'Abandoned votes marked as failed')
   }
 
-  const stuckOrders = await Vote.find({
+  const stuckPending = await Vote.find({
     paymentMethod: 'flutterwave',
     paymentStatus: 'pending',
-    createdAt: { $lt: fiveMinutesAgo, $gt: twoHoursAgo },
+    createdAt: { $lt: fiveMinutesAgo },
     flwTxId: { $ne: null },
   }).lean()
 
-  for (const order of stuckOrders) {
+  for (const order of stuckPending) {
     const claimed = await Vote.findOneAndUpdate(
       { _id: order._id, paymentStatus: 'pending' },
       { $set: { paymentStatus: 'processing' } },
@@ -308,14 +308,55 @@ export async function reconcilePendingOrders() {
     }
   }
 
+  const stuckProcessing = await Vote.find({
+    paymentMethod: 'flutterwave',
+    paymentStatus: 'processing',
+    flwTxId: { $ne: null },
+    createdAt: { $lt: fiveMinutesAgo },
+  }).lean()
+
+  for (const order of stuckProcessing) {
+    if (!order.flwTxId) continue
+
+    const verified = await flwService.verifyTransaction(order.flwTxId)
+    if (!verified) {
+      await Vote.findByIdAndUpdate(order._id, { paymentStatus: 'failed' })
+      continue
+    }
+
+    const allowed = order.totalCharged || order.totalAmount
+    const isValid =
+      verified.status === 'successful' &&
+      verified.currency === 'NGN' &&
+      verified.amount === allowed
+
+    if (!isValid) {
+      await Vote.findByIdAndUpdate(order._id, { paymentStatus: 'failed' })
+      continue
+    }
+
+    const session = await mongoose.startSession()
+    try {
+      await session.withTransaction(async () => {
+        await Vote.findByIdAndUpdate(order._id, { paymentStatus: 'confirmed', confirmedAt: new Date() }, { session })
+        await Nominee.findByIdAndUpdate(order.nomineeId, { $inc: { voteCount: order.quantity } }, { session })
+      })
+      logger.info({ voteId: order._id }, 'Stuck processing vote reconciled')
+    } catch {
+      logger.error({ voteId: order._id }, 'Failed to confirm stuck processing vote')
+    } finally {
+      session.endSession()
+    }
+  }
+
   await Vote.updateMany(
     {
       paymentMethod: 'flutterwave',
-      paymentStatus: 'pending',
+      paymentStatus: { $in: ['pending', 'processing'] },
       createdAt: { $lt: twoHoursAgo },
     },
     { $set: { paymentStatus: 'failed' } }
   )
 
-  logger.info({ reconciled: stuckOrders.length }, 'Reconciliation job completed')
+  logger.info({ reconciled: stuckPending.length + stuckProcessing.length }, 'Reconciliation job completed')
 }
